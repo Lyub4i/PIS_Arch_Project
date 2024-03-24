@@ -1,0 +1,12 @@
+@import "../../styles/mainStyle.scss";
+
+.mainPage{
+    .mainWelcome{
+        margin-top: 100px;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+}
