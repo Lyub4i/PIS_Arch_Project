@@ -1,5 +1,21 @@
 @import "../../styles/mainStyle.scss";
 
-.courses{
-    
+.courses {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .mainContent {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+
+    .mainContentTitle {
+      font-size: 80px;
+    }
+  }
+  .coursesContent{
+    margin-top: 10px;
+    width: 95%;
+  }
 }

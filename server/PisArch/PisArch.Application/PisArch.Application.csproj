@@ -21,8 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Repositories\" />
+    <Folder Include="Services\Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PisArch.Domain\PisArch.Domain.csproj" />
+    <ProjectReference Include="..\PisArch.Infrastructure\PisArch.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
