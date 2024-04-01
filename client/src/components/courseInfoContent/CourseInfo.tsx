@@ -1,5 +1,6 @@
 import React from "react";
 import "./CourseInfo.scss";
+import {saveCourseData} from "../../services/localStorage";
 
 export interface CourseInfoProps {
   id: number;
@@ -16,6 +17,15 @@ function CourseInfo({
   author,
   imageLink,
 }: CourseInfoProps) {
+
+  const redirectToLessonPage = () => {
+    if (saveCourseData(id)) {
+      setTimeout(() => {
+        window.location.href = "http://localhost:3000/lesson";
+      }, 500);
+    }
+  };
+
   return (
     <div className="courseInfo">
       <div className="courseInfoImageBlock">
@@ -24,6 +34,7 @@ function CourseInfo({
       <div className="courseInfoBlock">
         <div className="courseInfoTitle">{name}</div>
         <div className="courseInfoDescription">{description}</div>
+        <button onClick={redirectToLessonPage}>Go to this course</button>
       </div>
     </div>
   );

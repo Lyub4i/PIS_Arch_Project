@@ -4,9 +4,13 @@ import "./Courses.scss";
 import CourseInfo from "../../components/courseInfoContent/CourseInfo";
 
 function Courses() {
+  //Add hold function for courses and myCourses
   return (
     <div className="courses">
       <Header></Header>
+      <div className="mainContent">
+        <div className="mainContentTitle">{"My courses"}</div>
+      </div>
       <div className="mainContent">
         <div className="mainContentTitle">{"Courses"}</div>
       </div>

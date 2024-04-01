@@ -1,0 +1,17 @@
+@import "../../styles/mainStyle.scss";
+
+.lesson {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .lessonContent {
+    display: flex;
+    flex-direction: column;
+
+    .lessonTitle {
+    }
+    .lessonDescription {
+    }
+  }
+}
