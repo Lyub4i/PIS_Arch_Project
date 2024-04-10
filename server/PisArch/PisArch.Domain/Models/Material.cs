@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PisArch.Domain.Enums;
 
 namespace PisArch.Domain.Models
 {
@@ -11,7 +12,7 @@ namespace PisArch.Domain.Models
         public long Id { get; set; }
         public string Link { get; set; }
         public string Description { get; set; }
-        public string FileType { get; set; }
+        public FileTypes FileType { get; set; }
 
         public Lesson Lesson { get; set; }
         public long LessonId { get; set; }

@@ -1,0 +1,30 @@
+@import "../../styles/mainStyle.scss";
+
+.mentorInfo {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: #8787f3;
+
+  .mentorPhoto {
+    display: flex;
+    .mentorAvatarSettings {
+      width: 240px;
+    }
+  }
+
+  .mentorMain {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+
+    .mentorTitle {
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+    .mentorDescription {
+      font-size: 36px;
+    }
+  }
+}

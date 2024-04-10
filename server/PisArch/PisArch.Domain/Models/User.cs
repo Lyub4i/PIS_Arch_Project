@@ -12,9 +12,9 @@ namespace PisArch.Domain.Models
         public string Username { get; set; }
         public string Role { get; set; }
         public string PasswordHash { get; set; }
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
-        public ICollection<UserTokens> Tokens { get; set; }
-        public ICollection<UserProgresses> UserProgresses { get; set; }
+        public ICollection<UserToken> Tokens { get; set; } = new List<UserToken>();
+        public ICollection<UserProgresses> UserProgresses { get; set; } = new List<UserProgresses>();
     }
 }

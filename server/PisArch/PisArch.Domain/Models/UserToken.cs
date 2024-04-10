@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PisArch.Domain.Models
 {
-    public class UserTokens : IEntity
+    public class UserToken : IEntity
     {
         public long Id { get; set; }
         public string RefreshToken { get; set; }

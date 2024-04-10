@@ -1,4 +1,3 @@
-import { number } from "yargs";
 
 function saveCourseData(id: number): boolean {
   if (typeof id == "number") {

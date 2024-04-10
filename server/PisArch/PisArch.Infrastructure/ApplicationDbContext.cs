@@ -15,11 +15,11 @@ namespace PisArch.Infrastructure
             
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User?> Users { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<UserProgresses> UserProgresses { get; set; }
-        public DbSet<UserTokens> UserTokens { get; set; }
+        public DbSet<UserToken> UserTokens { get; set; }
     }
 }

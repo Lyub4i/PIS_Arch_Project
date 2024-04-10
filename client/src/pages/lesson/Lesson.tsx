@@ -26,6 +26,19 @@ function Lesson() {
       <div className="lessonContent">
         <div className="lessonTitle">{lessonTitle}</div>
         <div className="lessonDescription">{lessonDescription}</div>
+        <div className="lessonMaterial">
+          <iframe
+            src="https://drive.google.com/file/d/18FKmr0iQkEtas01M1DYzSN2OxVKWkpYi/preview"
+            className="lessonVideo"
+          ></iframe>
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/MwPc-9VCJ2s?si=OKRaYqgLn2vkKmwv"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          ></iframe>
+        </div>
       </div>
     </div>
   );
