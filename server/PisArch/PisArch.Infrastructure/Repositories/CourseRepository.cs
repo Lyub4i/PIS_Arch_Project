@@ -50,5 +50,12 @@ namespace PisArch.Infrastructure.Repositories
 
             return userProgress.Select(x => x.Course);
         }
+
+        public async Task<Lesson> GetCurrentLessonById(long userId, long courseId)
+        {
+            var userProgresses = await _context.UserProgresses.FirstOrDefaultAsync(x => x.CourseId == courseId && x.UserId == userId);
+
+            var currentLesson = userProgresses.
+        }
     }
 }
