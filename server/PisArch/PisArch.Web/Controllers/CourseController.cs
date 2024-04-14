@@ -43,11 +43,5 @@ namespace PisArch.Web.Controllers
 
             return Ok(courses);
         }
-
-        [HttpGet("currentLessong")]
-        public async Task<IActionResult> GetCurrentLesson(long userId, long courseId)
-        {
-            var 
-        }
     }
 }
