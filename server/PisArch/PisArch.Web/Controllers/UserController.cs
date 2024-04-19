@@ -54,7 +54,7 @@ namespace PisArch.Web.Controllers
                 return NotFound();
             }
 
-            if (!BCrypt.Net.BCrypt.EnhancedVerify(password, user.PasswordHash))
+            if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
             {
                 return Unauthorized();
             }
@@ -67,7 +67,13 @@ namespace PisArch.Web.Controllers
                 UserId = user.Id
             };
 
-            return Ok(newAccessToken);
+            await _userRepository.AddNewToken(newToken);
+
+            return Ok(new
+            {
+                accessToke = newAccessToken,
+                userId = user.Id
+            });
         }
 
         [HttpPost("getUserInfo")]

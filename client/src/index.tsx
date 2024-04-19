@@ -8,6 +8,7 @@ import Courses from "./pages/courses/Courses";
 import Lesson from "./pages/lesson/Lesson";
 import Mentors from "./pages/mentors/Mentors";
 import AboutUs from "./pages/aboutUs/AboutUs";
+import Register from "./pages/register/Register";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/aboutUs",
     element: <AboutUs />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 

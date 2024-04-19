@@ -19,7 +19,6 @@ namespace PisArch.Infrastructure.Repositories
 
         public async Task CreateNewUserAsync(User? user)
         {
-            user.Id = GenerateNewUserId();
             await _context.Users.AddAsync(user);
             await SaveChangesAsync();
         }
@@ -37,12 +36,6 @@ namespace PisArch.Infrastructure.Repositories
         public async Task<User?> GetById(long id)
         {
             return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        private long GenerateNewUserId()
-        {
-            var maxId = _context.Users.Max(u => (long?)u.Id) ?? 0;
-            return maxId + 1;
         }
 
         private async Task SaveChangesAsync()

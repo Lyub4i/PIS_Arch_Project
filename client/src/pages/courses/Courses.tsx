@@ -3,6 +3,7 @@ import Header from "../../components/header/Header";
 import "./Courses.scss";
 import CourseInfo from "../../components/courseInfoContent/CourseInfo";
 import { Course, CourseService } from "../../services/courseService";
+import { getUserId } from "../../services/localStorage";
 
 function Courses() {
   const emptyCourses: Course[] = [];
@@ -11,16 +12,21 @@ function Courses() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const myCoursesData = await CourseService.getMyCourses(1);
+      const userId = getUserId();
       const allCourses = await CourseService.getCourses();
 
-      setMyCourses(myCoursesData);
+      if (userId != 0 && typeof(userId) == "number") {
+        const myCoursesData = await CourseService.getMyCourses(userId);
+        setMyCourses(myCoursesData);
 
-      const filteredCourses = allCourses.filter(
-        (course) => !myCoursesData.some((myCourse) => myCourse.id === course.id)
-      );
-
-      setCourses(filteredCourses);
+        const filteredCourses = allCourses.filter(
+          (course) =>
+            !myCoursesData.some((myCourse) => myCourse.id === course.id)
+        );
+        setCourses(filteredCourses);
+      }else{
+        setCourses(allCourses);
+      }
     };
 
     fetchData();
@@ -41,6 +47,7 @@ function Courses() {
                 description={course.description}
                 author={course.author}
                 imageLink={course.imageLink}
+                isStarted={true}
               />
             ))}
           </div>
@@ -57,6 +64,7 @@ function Courses() {
               description={course.description}
               author={course.author}
               imageLink={course.imageLink}
+              isStarted={false}
             />
           ))}
         </div>

@@ -43,5 +43,11 @@ namespace PisArch.Web.Controllers
 
             return Ok(courses);
         }
+
+        //[HttpPost("registerInCourse")]
+        //public async Task<IActionResult> RegisterInCourse(long userId, long courseId)
+        //{
+
+        //}
     }
 }

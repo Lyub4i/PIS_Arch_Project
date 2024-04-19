@@ -13,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<CourseRepository>();
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddCors(policyBuilder =>
     policyBuilder.AddDefaultPolicy(policy =>

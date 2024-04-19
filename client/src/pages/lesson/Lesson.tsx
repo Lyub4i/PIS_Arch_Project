@@ -1,47 +1,104 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/header/Header";
 import "./Lesson.scss";
-import { getCourseId } from "../../services/localStorage";
+import {
+  getCourseId,
+  getIsCourseStarted,
+  saveRedirectedPage,
+} from "../../services/localStorage";
+import { CourseService, Lesson, Material } from "../../services/courseService";
 
-function Lesson() {
-  const [lessonTitle, setLessonTitle] = useState("");
-  const [courseId, setCourseId] = useState(0);
-  const [lessonDescription, setLessonDescription] = useState("");
+function LessonComponent() {
+  const [lessonInfo, setLessonInfo] = useState<Lesson | null>(null);
+  const [isStarted, setIsStarted] = useState(false);
 
   useEffect(() => {
-    if (!getCourseId()) {
-      window.location.href = "http://localhost:3000/courses";
-    }
+    const fetchData = async () => {
+      const courseIdValue = getCourseId();
 
-    const courseId = parseInt(getCourseId()!);
+      if (!courseIdValue) {
+        window.location.href = "http://localhost:3000/courses";
+        return;
+      }
 
-    //TODO: Will do request to API
-    setLessonTitle("Test1");
-    setLessonDescription("Test1 description");
+      const courseIdInt = parseInt(courseIdValue, 10);
+      const lesson = await CourseService.getTrailerForCourse(courseIdInt);
+      setLessonInfo(lesson);
+      setIsStarted(getIsCourseStarted());
+    };
+
+    fetchData();
   }, []);
+
+  if (!lessonInfo) {
+    return null;
+  }
+
+  const { title, description, materials, content } = lessonInfo;
+
+  const renderMaterial = (material: Material) => {
+    switch (material.fileType) {
+      case 1:
+        return (
+          <iframe
+            key={material.id}
+            src="https://drive.google.com/file/d/18FKmr0iQkEtas01M1DYzSN2OxVKWkpYi/preview"
+            className="lessonVideo"
+            title="Google Video Preview"
+          />
+        );
+      case 2:
+        return (
+          <iframe
+            key={material.id}
+            width="560"
+            height="315"
+            src={material.link}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          />
+        );
+      case 3:
+        return (
+          <iframe
+            key={material.id}
+            src={material.link}
+            className="lessonPDF"
+            title="PDF Preview"
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  const redirectToRegisterPage = () => {
+    saveRedirectedPage(window.location.href);
+    window.location.href = "http://localhost:3000/register";
+  };
 
   return (
     <div className="lesson">
-      <Header></Header>
+      <Header />
       <div className="lessonContent">
-        <div className="lessonTitle">{lessonTitle}</div>
-        <div className="lessonDescription">{lessonDescription}</div>
+        <div className="lessonTitle">{title}</div>
+        <div className="lessonDescription">{description}</div>
         <div className="lessonMaterial">
-          <iframe
-            src="https://drive.google.com/file/d/18FKmr0iQkEtas01M1DYzSN2OxVKWkpYi/preview"
-            className="lessonVideo"
-          ></iframe>
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/MwPc-9VCJ2s?si=OKRaYqgLn2vkKmwv"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          ></iframe>
+          {materials.map((material) => renderMaterial(material))}
+        </div>
+        <div className="lessonDopContent">Додатковий контент {content}</div>
+        <div className="registerPart">
+          {isStarted ? (
+            <>
+              <button onClick={redirectToRegisterPage}>Try full course</button>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-export default Lesson;
+export default LessonComponent;

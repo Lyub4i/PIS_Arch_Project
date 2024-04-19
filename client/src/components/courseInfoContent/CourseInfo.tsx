@@ -8,6 +8,7 @@ export interface CourseInfoProps {
   description: string;
   author: string;
   imageLink: string;
+  isStarted: boolean;
 }
 
 function CourseInfo({
@@ -16,10 +17,11 @@ function CourseInfo({
   description,
   author,
   imageLink,
+  isStarted,
 }: CourseInfoProps) {
 
   const redirectToLessonPage = () => {
-    if (saveCourseData(id)) {
+    if (saveCourseData(id, isStarted)) {
       setTimeout(() => {
         window.location.href = "http://localhost:3000/lesson";
       }, 500);

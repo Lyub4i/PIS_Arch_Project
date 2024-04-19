@@ -50,5 +50,22 @@ namespace PisArch.Infrastructure.Repositories
 
             return userProgress.Select(x => x.Course);
         }
+
+        public async Task RegisterInCourseAsync(long userId, long courseId)
+        {
+            var course = await _context.Courses.Include(t => t.Lessons).FirstOrDefaultAsync(x => x.Id == courseId);
+
+            var userProgres = new UserProgresses()
+            {
+                CurrentLesson = 1,
+                StartedDate = DateTime.UtcNow,
+                UserId = userId,
+                CourseId = courseId,
+                CompletionDate = DateTime.UtcNow.AddDays(7*(course.Lessons.Count/2))
+            };
+
+            await _context.UserProgresses.AddAsync(userProgres);
+            await _context.SaveChangesAsync();
+        }
     }
 }
