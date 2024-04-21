@@ -25,6 +25,12 @@ namespace PisArch.Web.Controllers
             return Ok();
         }
 
+        [HttpGet("courseInfo")]
+        public async Task<IActionResult> GetCourseInfo(long courseId)
+        {
+            return Ok(await _courseRepository.GetCourse(courseId));
+        }
+
         [HttpGet("courses")]
         public async Task<IActionResult> GetCourses()
         {
@@ -44,10 +50,12 @@ namespace PisArch.Web.Controllers
             return Ok(courses);
         }
 
-        //[HttpPost("registerInCourse")]
-        //public async Task<IActionResult> RegisterInCourse(long userId, long courseId)
-        //{
+        [HttpPost("startCourse")]
+        public async Task<IActionResult> StartCourse(long courseId, long userId)
+        {
+            await _courseRepository.RegisterInCourseAsync(userId, courseId);
 
-        //}
+            return Ok();
+        }
     }
 }

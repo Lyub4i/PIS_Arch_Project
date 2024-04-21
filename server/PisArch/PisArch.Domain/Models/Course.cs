@@ -18,6 +18,7 @@ namespace PisArch.Domain.Models
         public string Description { get; set; }
         public string Author { get; set; }
         public string ImageLink { get; set; }
+        public float Price { get; set; }
         public CourseTypes CourseType { get; set; }
 
         public ICollection<Lesson> Lessons { get; set; }

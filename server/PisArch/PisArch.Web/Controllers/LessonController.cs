@@ -27,5 +27,19 @@ namespace PisArch.Web.Controllers
 
             return Ok(lesson);
         }
+
+        [HttpGet("currentLesson")]
+        public async Task<IActionResult> GetCurrentLesson(long userId, long courseId)
+        {
+            var result = await _lessonRepository.GetCurrentLesson(courseId, userId);
+            return Ok(result);
+        }
+
+        [HttpPost("goToTheNext")]
+        public async Task<IActionResult> GoToTheNextLesson(long courseId, long userId)
+        {
+            var result = await _lessonRepository.GoToTheNextLesson(courseId, userId);
+            return Ok(result);
+        }
     }
 }

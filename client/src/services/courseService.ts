@@ -9,6 +9,7 @@ export interface Course {
   author: string;
   imageLink: string;
   courseType: number;
+  price: number;
 }
 
 export interface Lesson {
@@ -54,7 +55,7 @@ export class CourseService {
     try {
       const response = await axios.get<Course[]>(getRequest, {
         params: {
-          id: id,
+          userId: id,
         },
       });
       responseData = response.data;
@@ -81,5 +82,123 @@ export class CourseService {
     }
 
     return responseData as Lesson;
+  }
+
+  static async getCurrentLesson(
+    courseId: number,
+    userId: number
+  ): Promise<Lesson> {
+    const getRequest = `${LOCAL_HOST}/Lesson/currentLesson`;
+    let responseData: Lesson | null = null;
+
+    try {
+      const response = await axios.get<Lesson>(getRequest, {
+        params: {
+          courseId: courseId,
+          userId: userId
+        },
+      });
+      responseData = response.data;
+      console.log(responseData);
+      
+    } catch (error) {
+      console.error("Error fetching trailer for course:", error);
+    }
+
+    return responseData as Lesson;
+  }
+
+  static async getCourseInfo(courseId: number) {
+    console.log("start");
+
+    const getRequest = `${LOCAL_HOST}/Course/courseInfo`;
+    let responseData: any;
+
+    try {
+      const response = await axios.get(getRequest, {
+        params: {
+          courseId: courseId,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      responseData = response.data;
+      console.log("Course info received:", responseData);
+    } catch (error: any) {
+      if (error.response) {
+        console.error("Data:", error.response.data);
+        console.error("Status:", error.response.status);
+        console.error("Headers:", error.response.headers);
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+      } else {
+        console.error("Error setting up the request:", error.message);
+      }
+      throw error;
+    }
+
+    return responseData as Course;
+  }
+
+  static async startCourse(userId: number, courseId: number) {
+    console.log("start");
+
+    const getRequest = `${LOCAL_HOST}/Course/startCourse`;
+
+    try {
+      const response = await axios.post(getRequest, null, {
+        params: {
+          userId: userId,
+          courseId: courseId,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (error: any) {
+      if (error.response) {
+        console.error("Data:", error.response.data);
+        console.error("Status:", error.response.status);
+        console.error("Headers:", error.response.headers);
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+      } else {
+        console.error("Error setting up the request:", error.message);
+      }
+      throw error;
+    }
+  }
+
+  static async goToTheNext(courseId: number, userId: number) {
+    const getRequest = `${LOCAL_HOST}/Lesson/goToTheNext`;
+    let responseData: any;
+
+    try {
+      const response = await axios.post(getRequest, null, {
+        params: {
+          courseId: courseId,
+          userId: userId,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      responseData = response.data;
+      console.log("Registration successful:", responseData);
+    } catch (error: any) {
+      if (error.response) {
+        console.error("Data:", error.response.data);
+        console.error("Status:", error.response.status);
+        console.error("Headers:", error.response.headers);
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+      } else {
+        console.error("Error setting up the request:", error.message);
+      }
+      throw error;
+    }
+
+    return responseData;
   }
 }

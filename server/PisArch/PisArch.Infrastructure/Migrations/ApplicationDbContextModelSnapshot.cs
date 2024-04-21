@@ -49,6 +49,9 @@ namespace PisArch.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
@@ -158,6 +161,9 @@ namespace PisArch.Infrastructure.Migrations
 
                     b.Property<long>("CurrentLesson")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("LastLesson")
+                        .HasColumnType("int");
 
                     b.Property<float>("Progress")
                         .HasColumnType("real");

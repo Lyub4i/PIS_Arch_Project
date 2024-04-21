@@ -9,6 +9,9 @@ import Lesson from "./pages/lesson/Lesson";
 import Mentors from "./pages/mentors/Mentors";
 import AboutUs from "./pages/aboutUs/AboutUs";
 import Register from "./pages/register/Register";
+import BuyCourse from "./pages/buyCourse/BuyCourse";
+import { getCourseId, getUserId } from "./services/localStorage";
+import UserInfo from "./pages/userInfo/UserInfo";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +37,19 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/buyCourse",
+    element: (
+      <BuyCourse
+        userId={getUserId()!}
+        courseId={Number.parseInt(getCourseId()!)}
+      />
+    ),
+  },
+  {
+    path: "/user",
+    element: <UserInfo />,
   },
 ]);
 

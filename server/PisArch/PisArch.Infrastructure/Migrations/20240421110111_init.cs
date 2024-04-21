@@ -19,6 +19,7 @@ namespace PisArch.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: false),
                     CourseType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -72,6 +73,7 @@ namespace PisArch.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Progress = table.Column<float>(type: "real", nullable: false),
                     CurrentLesson = table.Column<long>(type: "bigint", nullable: false),
+                    LastLesson = table.Column<int>(type: "int", nullable: false),
                     CompletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StartedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),

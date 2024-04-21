@@ -44,7 +44,9 @@ function Header() {
         </a>
       </div>
       <div className="userIcon">
+        <a href="/user">
         <img src={userIcon} width={"42px"} height={"42px"} />
+        </a>
       </div>
     </div>
   );

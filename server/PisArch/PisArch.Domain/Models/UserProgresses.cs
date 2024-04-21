@@ -15,6 +15,7 @@ namespace PisArch.Domain.Models
         public long Id { get; set; }
         public float Progress { get; set; }
         public long CurrentLesson { get; set; }
+        public int LastLesson { get; set; }
         public DateTime CompletionDate { get; set; }
         public DateTime StartedDate { get; set; }
 

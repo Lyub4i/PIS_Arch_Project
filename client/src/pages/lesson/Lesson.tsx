@@ -4,6 +4,8 @@ import "./Lesson.scss";
 import {
   getCourseId,
   getIsCourseStarted,
+  getUserId,
+  isAuthorized,
   saveRedirectedPage,
 } from "../../services/localStorage";
 import { CourseService, Lesson, Material } from "../../services/courseService";
@@ -11,6 +13,7 @@ import { CourseService, Lesson, Material } from "../../services/courseService";
 function LessonComponent() {
   const [lessonInfo, setLessonInfo] = useState<Lesson | null>(null);
   const [isStarted, setIsStarted] = useState(false);
+  const [userId, setUserId] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,9 +25,20 @@ function LessonComponent() {
       }
 
       const courseIdInt = parseInt(courseIdValue, 10);
-      const lesson = await CourseService.getTrailerForCourse(courseIdInt);
+      const currentuUserId = getUserId();
+
+      const currentIsStarted = getIsCourseStarted();
+      setIsStarted(currentIsStarted);
+
+      setUserId(currentuUserId!);
+
+      console.log("IsStarted: " + currentIsStarted);
+      console.log("CourseId: " + courseIdInt + " userId: " + currentuUserId);
+
+      const lesson = currentIsStarted
+        ? await CourseService.getCurrentLesson(courseIdInt, currentuUserId!)
+        : await CourseService.getTrailerForCourse(courseIdInt);
       setLessonInfo(lesson);
-      setIsStarted(getIsCourseStarted());
     };
 
     fetchData();
@@ -42,7 +56,7 @@ function LessonComponent() {
         return (
           <iframe
             key={material.id}
-            src="https://drive.google.com/file/d/18FKmr0iQkEtas01M1DYzSN2OxVKWkpYi/preview"
+            src={`https://drive.google.com/file/d/${material.link}/preview`}
             className="lessonVideo"
             title="Google Video Preview"
           />
@@ -51,8 +65,8 @@ function LessonComponent() {
         return (
           <iframe
             key={material.id}
-            width="560"
-            height="315"
+            width="840"
+            height="480"
             src={material.link}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -73,8 +87,25 @@ function LessonComponent() {
   };
 
   const redirectToRegisterPage = () => {
-    saveRedirectedPage(window.location.href);
-    window.location.href = "http://localhost:3000/register";
+    if (isAuthorized()) {
+      window.location.href = "http://localhost:3000/buyCourse";
+    } else {
+      saveRedirectedPage("http://localhost:3000/courses");
+      window.location.href = "http://localhost:3000/register";
+    }
+  };
+
+  const goToTheNextLesson = async () => {
+    const course = getCourseId()!;
+    const courseIdInt = parseInt(course);
+
+    const result = await CourseService.goToTheNext(courseIdInt, userId);
+
+    if (result) {
+      window.location.reload();
+    } else {
+      alert("Ви завершили курс. Вітаємо!");
+    }
   };
 
   return (
@@ -88,12 +119,14 @@ function LessonComponent() {
         </div>
         <div className="lessonDopContent">Додатковий контент {content}</div>
         <div className="registerPart">
-          {isStarted ? (
+          {!isStarted ? (
             <>
-              <button onClick={redirectToRegisterPage}>Try full course</button>
+              <button onClick={redirectToRegisterPage}>Get full course</button>
             </>
           ) : (
-            <></>
+            <>
+              <button onClick={goToTheNextLesson}>Go to the next lesson</button>
+            </>
           )}
         </div>
       </div>

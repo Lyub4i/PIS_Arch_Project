@@ -12,7 +12,7 @@ using PisArch.Infrastructure;
 namespace PisArch.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240414165003_init")]
+    [Migration("20240421110111_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,9 @@ namespace PisArch.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -160,6 +163,9 @@ namespace PisArch.Infrastructure.Migrations
 
                     b.Property<long>("CurrentLesson")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("LastLesson")
+                        .HasColumnType("int");
 
                     b.Property<float>("Progress")
                         .HasColumnType("real");

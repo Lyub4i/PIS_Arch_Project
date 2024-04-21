@@ -1,7 +1,30 @@
 import axios from "axios";
 import { saveUserId } from "./localStorage";
+import { Course } from "./courseService";
 
 const LOCAL_HOST = "https://localhost:7050";
+
+export interface User {
+  id: number;
+  username: string;
+  role: string;
+  passwordHash: string;
+  email: string;
+  tokens: UserToken[];
+  userProgresses: UserProgresses[];
+}
+
+export interface UserToken {
+  refreshToken: string;
+  refreshTokenExpTime: Date;
+  userId: number;
+}
+
+export interface UserProgresses {
+  courseId: number;
+  progress: number;
+}
+
 
 export class UserService {
   constructor() {}
@@ -74,5 +97,37 @@ export class UserService {
     saveUserId(responseData.userId);
 
     return responseData;
+  }
+
+  static async getUserInfoById(userId: number) {
+    const getRequest = `${LOCAL_HOST}/User/getUserInfoById`;
+    let responseData: User;
+
+    try {
+      const response = await axios.get<User>(getRequest, {
+        params: {
+          userId: userId,
+        },
+      });
+      responseData = response.data as User;
+    } catch (error) {
+      console.error("Error fetching user info:", error);
+      throw error;
+    }
+
+    return responseData;
+  }
+
+  static async logout(userId: number) {
+    const postRequest = `${LOCAL_HOST}/User/logout`;
+    
+    try {
+      await axios.post(postRequest, {
+        userId: userId,
+      });
+    } catch (error) {
+      console.error("Error logging out:", error);
+      throw error;
+    }
   }
 }

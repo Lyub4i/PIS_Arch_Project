@@ -3,7 +3,7 @@ import Header from "../../components/header/Header";
 import "./Courses.scss";
 import CourseInfo from "../../components/courseInfoContent/CourseInfo";
 import { Course, CourseService } from "../../services/courseService";
-import { getUserId } from "../../services/localStorage";
+import { getUserId, isAuthorized } from "../../services/localStorage";
 
 function Courses() {
   const emptyCourses: Course[] = [];
@@ -12,11 +12,13 @@ function Courses() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const userId = getUserId();
       const allCourses = await CourseService.getCourses();
 
-      if (userId != 0 && typeof(userId) == "number") {
-        const myCoursesData = await CourseService.getMyCourses(userId);
+      if (isAuthorized()) {
+        console.log("Authorized");
+        
+        const userId = getUserId();
+        const myCoursesData = await CourseService.getMyCourses(userId!);
         setMyCourses(myCoursesData);
 
         const filteredCourses = allCourses.filter(

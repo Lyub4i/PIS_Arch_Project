@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PisArch.Domain.Constants;
 using PisArch.Domain.Models;
 
 namespace PisArch.Infrastructure.Repositories
@@ -48,16 +49,31 @@ namespace PisArch.Infrastructure.Repositories
                 return null;
             }
 
-            return userProgress.Select(x => x.Course);
+            var courses = userProgress.Select(x => x.Course).ToList();
+            foreach (var course in courses)
+            {
+                course.UserProgresses = null;
+            }
+
+            return courses;
         }
 
         public async Task RegisterInCourseAsync(long userId, long courseId)
         {
             var course = await _context.Courses.Include(t => t.Lessons).FirstOrDefaultAsync(x => x.Id == courseId);
 
+            var started =
+                await _context.UserProgresses.FirstOrDefaultAsync(x => x.CourseId == courseId && x.UserId == userId);
+
+            if (started != null)
+            {
+                return;
+            }
+
             var userProgres = new UserProgresses()
             {
                 CurrentLesson = 1,
+                LastLesson = course.Lessons.Count,
                 StartedDate = DateTime.UtcNow,
                 UserId = userId,
                 CourseId = courseId,

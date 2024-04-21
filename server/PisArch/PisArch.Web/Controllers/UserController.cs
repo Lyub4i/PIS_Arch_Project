@@ -76,7 +76,7 @@ namespace PisArch.Web.Controllers
             });
         }
 
-        [HttpPost("getUserInfo")]
+        [HttpGet("getUserInfo")]
         public async Task<IActionResult> GetUserInfo(string accessToken)
         {
             var userId = _jwtHelper.GetUserIdFromJwtToken(accessToken);
@@ -92,6 +92,29 @@ namespace PisArch.Web.Controllers
             }
 
             return Ok(user);
+        }
+
+        [HttpGet("getUserInfoById")]
+        public async Task<IActionResult> GetUserInfoId(long userId)
+        {
+            var user = await _userRepository.GetById(userId);
+            return Ok(user);
+        }
+
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout(long userId)
+        {
+            await _userRepository.LogoutAsync(userId);
+
+            return Ok();
+        }
+
+        [HttpPost("usePromocode")]
+        public async Task<IActionResult> UsePromocode(long userId, string promo)
+        {
+            _userRepository.UserPromocodeAsyn(userId, promo);
+
+            return Ok();
         }
     }
 }
