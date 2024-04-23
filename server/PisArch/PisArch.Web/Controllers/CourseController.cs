@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PisArch.Domain.Models;
 using PisArch.Infrastructure.Repositories;
 
 namespace PisArch.Web.Controllers
@@ -35,6 +36,22 @@ namespace PisArch.Web.Controllers
         public async Task<IActionResult> GetCourses()
         {
             return Ok(await _courseRepository.GetCourses());
+        }
+
+        [HttpDelete("course")]
+        public async Task DeleteCourse(long userId, long courseId)
+        {
+            //TODO: Check is user admin
+
+            await _courseRepository.DeleteCourse(userId, courseId);
+        }
+
+        [HttpPost("course")]
+        public async Task AddCourse(Course course,long courseId)
+        {
+            //TODO: Check is user admin
+
+            await _courseRepository.AddCourseAsync(course);
         }
 
         [HttpGet("myCourses")]

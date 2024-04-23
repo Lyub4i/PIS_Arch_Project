@@ -9,9 +9,12 @@
     margin-top: 50px;
     width: 90%;
     display: flex;
+    flex-direction: column;
 
     .userInfoInfo {
       font-size: 30px;
+      display: flex;
+      flex-direction: column;
 
       .userName {
       }
@@ -21,6 +24,8 @@
       }
 
       .userButton {
+        display: flex;
+
         button {
           padding: 10px 20px;
           background-color: #4caf50;

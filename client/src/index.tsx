@@ -12,6 +12,7 @@ import Register from "./pages/register/Register";
 import BuyCourse from "./pages/buyCourse/BuyCourse";
 import { getCourseId, getUserId } from "./services/localStorage";
 import UserInfo from "./pages/userInfo/UserInfo";
+import AdminPanel from "./pages/adminPanel/AdminPanel";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: "/user",
     element: <UserInfo />,
+  },
+  {
+    path: "/admin",
+    element: <AdminPanel />,
   },
 ]);
 

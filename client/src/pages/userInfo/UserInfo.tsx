@@ -12,11 +12,6 @@ import {
 } from "../../services/localStorage";
 import { Course, CourseService } from "../../services/courseService";
 
-export interface BuyCourseProps {
-  userId: number;
-  courseId: number;
-}
-
 function UserInfo() {
   const [user, setUser] = useState<User>();
 

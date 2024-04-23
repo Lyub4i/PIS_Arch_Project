@@ -40,6 +40,22 @@ namespace PisArch.Infrastructure.Repositories
             return await _context.Courses.ToListAsync();
         }
 
+        public async Task DeleteCourse(long userId, long courseId)
+        {
+            var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == courseId);
+            if (course == null)
+            {
+                return;
+            }
+            _context.Courses.Remove(course);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddCourseAsync(Course course)
+        {
+            await _context.Courses.AddAsync(course);
+        }
+
         public async Task<IEnumerable<Course>> GetMyCourses(long userId)
         {
             var userProgress = await _context.UserProgresses.Where(x => x.UserId == userId).Include(t => t.Course).ToListAsync();
