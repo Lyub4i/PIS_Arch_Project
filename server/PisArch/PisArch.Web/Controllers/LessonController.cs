@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PisArch.Domain.Models;
 using PisArch.Infrastructure.Repositories;
 
 namespace PisArch.Web.Controllers
@@ -28,6 +29,13 @@ namespace PisArch.Web.Controllers
             return Ok(lesson);
         }
 
+        [HttpGet("lessons")]
+        public async Task<IActionResult> GetLessons(long courseId)
+        {
+            var result = await _lessonRepository.GetLessons(courseId);
+            return Ok(result);
+        }
+
         [HttpGet("currentLesson")]
         public async Task<IActionResult> GetCurrentLesson(long userId, long courseId)
         {
@@ -40,6 +48,69 @@ namespace PisArch.Web.Controllers
         {
             var result = await _lessonRepository.GoToTheNextLesson(courseId, userId);
             return Ok(result);
+        }
+
+        [HttpPost("lesson")]
+        public async Task<IActionResult> AddLesson(long courseId, long userId, Lesson lesson)
+        {
+            await _lessonRepository.AddLessonAsync(courseId, lesson);
+            return Ok();
+        }
+
+        [HttpPut("lesson")]
+        public async Task<IActionResult> UpdateLesson(long courseId, long userId, Lesson lesson)
+        {
+            await _lessonRepository.UpdateLessonAsync(courseId, lesson);
+            return Ok();
+        }
+
+        [HttpDelete("lesson")]
+        public async Task<IActionResult> DeleteLessonAsync(long lessondId)
+        {
+            await _lessonRepository.DeleteLesson(lessondId);
+
+            return Ok();
+        }
+
+        [HttpGet("lessonInfo")]
+        public async Task<IActionResult> GetLessonInfo(long lessonId)
+        {
+            return Ok(await _lessonRepository.GetLessonInfo(lessonId));
+        }
+
+        //Materials
+
+        [HttpGet("materials")]
+        public async Task<IActionResult> GetMaterials(long lessonId)
+        {
+            return Ok(await _lessonRepository.GetMaterials(lessonId));
+        }
+
+        [HttpPost("material")]
+        public async Task<IActionResult> AddMaterial(long lessonId, Material material)
+        {
+            await _lessonRepository.AddMaterialAsync(lessonId, material);
+            return Ok();
+        }
+
+        [HttpPut("material")]
+        public async Task<IActionResult> UpdateMaterial(long materialId, Material material)
+        {
+            await _lessonRepository.UpdateMaterial(materialId, material);
+            return Ok();
+        }
+
+        [HttpDelete("material")]
+        public async Task<IActionResult> UpdateMaterial(long materialId)
+        {
+            await _lessonRepository.DeleteMaterial(materialId);
+            return Ok();
+        }
+
+        [HttpGet("materialInfo")]
+        public async Task<IActionResult> GetMaterialInfo(long materialId)
+        {
+            return Ok(await _lessonRepository.GetMatrialInfo(materialId));
         }
     }
 }

@@ -47,11 +47,19 @@ namespace PisArch.Web.Controllers
         }
 
         [HttpPost("course")]
-        public async Task AddCourse(Course course,long courseId)
+        public async Task AddCourse(Course course,long userId)
         {
             //TODO: Check is user admin
 
             await _courseRepository.AddCourseAsync(course);
+        }
+
+        [HttpPut("course")]
+        public async Task UpdateCourse(Course course, long userId)
+        {
+            //TODO: Check is user admin
+
+            await _courseRepository.UpdateCourseAsync(course);
         }
 
         [HttpGet("myCourses")]

@@ -54,6 +54,17 @@ namespace PisArch.Infrastructure.Repositories
         public async Task AddCourseAsync(Course course)
         {
             await _context.Courses.AddAsync(course);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateCourseAsync(Course course)
+        {
+            if (_context.Courses.Contains(course))
+            {
+                _context.Courses.Update(course);
+
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task<IEnumerable<Course>> GetMyCourses(long userId)

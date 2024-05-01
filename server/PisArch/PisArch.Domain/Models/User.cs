@@ -18,7 +18,7 @@ namespace PisArch.Domain.Models
         public string PasswordHash { get; set; }
         public string Email { get; set; } = string.Empty;
 
-        public ICollection<UserToken> Tokens { get; set; } = new List<UserToken>();
-        public ICollection<UserProgresses> UserProgresses { get; set; } = new List<UserProgresses>();
+        public ICollection<UserToken>? Tokens { get; set; } = new List<UserToken>();
+        public ICollection<UserProgresses>? UserProgresses { get; set; } = new List<UserProgresses>();
     }
 }

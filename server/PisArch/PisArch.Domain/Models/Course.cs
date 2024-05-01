@@ -21,7 +21,7 @@ namespace PisArch.Domain.Models
         public float Price { get; set; }
         public CourseTypes CourseType { get; set; }
 
-        public ICollection<Lesson> Lessons { get; set; }
-        public ICollection<UserProgresses> UserProgresses { get; set; }
+        public ICollection<Lesson>? Lessons { get; set; }
+        public ICollection<UserProgresses>? UserProgresses { get; set; }
     }
 }

@@ -13,6 +13,9 @@ import BuyCourse from "./pages/buyCourse/BuyCourse";
 import { getCourseId, getUserId } from "./services/localStorage";
 import UserInfo from "./pages/userInfo/UserInfo";
 import AdminPanel from "./pages/adminPanel/AdminPanel";
+import CourseForm from "./pages/courseForm/CourseForm";
+import LessonForm from "./pages/lessonForm/LessonForm";
+import MaterialForm from "./pages/materialForm/MaterialForm";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +58,18 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminPanel />,
+  },
+  {
+    path: "/courseForm",
+    element: <CourseForm />,
+  },
+  {
+    path: "/lessonForm",
+    element: <LessonForm />,
+  },
+  {
+    path: "/materialForm",
+    element: <MaterialForm />,
   },
 ]);
 

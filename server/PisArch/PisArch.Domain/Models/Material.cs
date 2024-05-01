@@ -18,7 +18,7 @@ namespace PisArch.Domain.Models
         public string Description { get; set; }
         public FileTypes FileType { get; set; }
 
-        public Lesson Lesson { get; set; }
+        public Lesson? Lesson { get; set; }
         public long LessonId { get; set; }
     }
 }

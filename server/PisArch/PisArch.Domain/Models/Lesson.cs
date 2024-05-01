@@ -17,8 +17,8 @@ namespace PisArch.Domain.Models
         public string Description { get; set; }
         public string Content { get; set; }
 
-        public ICollection<Material> Materials { get; set; }
-        public Course Course { get; set; }
+        public ICollection<Material>? Materials { get; set; }
+        public Course? Course { get; set; }
         public long CourseId { get; set; }
     }
 }

@@ -141,6 +141,52 @@ export class CourseService {
     return responseData as Course;
   }
 
+  static async getLessonInfo(lessonId: number) {
+    console.log("start");
+
+    const getRequest = `${LOCAL_HOST}/Lesson/lessonInfo`;
+    let responseData: any;
+
+    try {
+      const response = await axios.get(getRequest, {
+        params: {
+          lessonId: lessonId,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      responseData = response.data;
+      console.log("Course info received:", responseData);
+    } catch (error: any) {
+    }
+
+    return responseData as Lesson;
+  }
+
+  static async getMaterialInfo(materialId: number) {
+    console.log("start");
+
+    const getRequest = `${LOCAL_HOST}/Lesson/MaterialInfo`;
+    let responseData: any;
+
+    try {
+      const response = await axios.get(getRequest, {
+        params: {
+          materialId: materialId,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      responseData = response.data;
+      console.log("Course info received:", responseData);
+    } catch (error: any) {
+    }
+
+    return responseData as Material;
+  }
+
   static async startCourse(userId: number, courseId: number) {
     console.log("start");
 
@@ -200,5 +246,45 @@ export class CourseService {
     }
 
     return responseData;
+  }
+
+  static async getLessons(courseId: number): Promise<Lesson[]> {
+    const getRequest = `${LOCAL_HOST}/Lesson/lessons`;
+    let responseData: Lesson[] | null = null;
+
+    try {
+      const response = await axios.get<Lesson[]>(getRequest, {
+        params: {
+          courseId: courseId,
+        },
+      });
+      console.log("Lessons response: " + response);
+      
+      responseData = response.data;
+    } catch (error) {
+      console.error("Error fetching trailer for course:", error);
+    }
+
+    return responseData as Lesson[];
+  }
+
+  static async getMaterials(lessonId: number): Promise<Material[]> {
+    const getRequest = `${LOCAL_HOST}/Lesson/materials`;
+    let responseData: Material[] | null = null;
+
+    try {
+      const response = await axios.get<Material[]>(getRequest, {
+        params: {
+          lessonId: lessonId,
+        },
+      });
+      console.log("Lessons response: " + response);
+      
+      responseData = response.data;
+    } catch (error) {
+      console.error("Error fetching trailer for course:", error);
+    }
+
+    return responseData as Material[];
   }
 }

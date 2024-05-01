@@ -28,11 +28,25 @@ function AdminPanel() {
     }
   };
 
+  const updateCourse = async (courseId: number) => {
+    window.location.href = "http://localhost:3000/courseForm?update";
+  };
+
+  const addCourse = () => {
+    window.location.href = "http://localhost:3000/courseForm";
+  };
+
   return (
     <div>
       <Header></Header>
       <div className="course-list">
         <h1 className="course-list__title">Courses</h1>
+        <button
+          className="course-item__button"
+          onClick={() => addCourse()}
+        >
+          Add course
+        </button>
         <ul className="course-list__items">
           {courses.map((course: any) => (
             <li key={course.id} className="course-item">
@@ -51,6 +65,14 @@ function AdminPanel() {
                   onClick={() => deleteCourse(course.id)}
                 >
                   Delete
+                </button>
+
+                <button
+                  className="course-item__button"
+                  onClick={() => updateCourse(course.id)}
+                  style={{marginLeft: '20px'}}
+                >
+                  Update
                 </button>
               </div>
             </li>

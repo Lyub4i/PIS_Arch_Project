@@ -12,8 +12,8 @@ using PisArch.Infrastructure;
 namespace PisArch.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240421110111_init")]
-    partial class init
+    [Migration("20240501073716_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
